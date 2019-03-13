@@ -12,6 +12,7 @@
 		44AA00F122305D1000B508B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F022305D1000B508B8 /* Assets.xcassets */; };
 		44AA00F322305D1000B508B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F222305D1000B508B8 /* LaunchScreen.storyboard */; };
 		44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AA00F522305D1000B508B8 /* AppDelegate.swift */; };
+		7C5F772B666989DBF6613AE6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7C5F7D01699A58467035AF6C /* README.md */; };
 		F7D399B4F9E7283268C4CE32 /* Pods_MCatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F9903B355C2BEFAF0BFA72 /* Pods_MCatalog.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		44AA00F422305D1000B508B8 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		44AA00F522305D1000B508B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AA00F722305D1000B508B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C5F7D01699A58467035AF6C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		99F9903B355C2BEFAF0BFA72 /* Pods_MCatalog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MCatalog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84E891A50487F84C49090DF /* Pods-MCatalog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCatalog.release.xcconfig"; path = "Target Support Files/Pods-MCatalog/Pods-MCatalog.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +70,7 @@
 				44AA00D122305D1000B508B8 /* Products */,
 				3EDFA13E0BB627E17E62186E /* Pods */,
 				F998528936E0DA92B44B9431 /* Frameworks */,
+				7C5F7D01699A58467035AF6C /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */,
+				7C5F772B666989DBF6613AE6 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
