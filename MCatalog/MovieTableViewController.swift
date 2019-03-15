@@ -11,7 +11,6 @@ import UIKit
 class MovieTableViewController: UIViewController {
 
     @IBOutlet weak var movieTableView: UITableView!
-    private var tableView: UITableView!
     private var movies: [MovieModel] = MovieModel.tmp()
 
     override func viewDidLoad() {
