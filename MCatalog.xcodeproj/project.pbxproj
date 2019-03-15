@@ -7,17 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44645DA5223980BB00D35242 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44645DA4223980BB00D35242 /* Main.storyboard */; };
+		44645DA7223A868B00D35242 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44645DA6223A868B00D35242 /* MovieModel.swift */; };
+		44645DAB223A889100D35242 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44645DAA223A889100D35242 /* MovieCell.swift */; };
+		44645DAD223A8B4F00D35242 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44645DAC223A8B4F00D35242 /* MovieTableViewController.swift */; };
 		44AA00EB22305D1000B508B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EA22305D1000B508B8 /* Localizable.strings */; };
 		44AA00EF22305D1000B508B8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EE22305D1000B508B8 /* Colors.xcassets */; };
 		44AA00F122305D1000B508B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F022305D1000B508B8 /* Assets.xcassets */; };
 		44AA00F322305D1000B508B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F222305D1000B508B8 /* LaunchScreen.storyboard */; };
 		44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AA00F522305D1000B508B8 /* AppDelegate.swift */; };
+		44E40279223B29AD00B915FC /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E40278223B29AD00B915FC /* MovieDetailsViewController.swift */; };
+		44E4027B223B2A6400B915FC /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4027A223B2A6400B915FC /* ImageViewExtension.swift */; };
 		7C5F772B666989DBF6613AE6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7C5F7D01699A58467035AF6C /* README.md */; };
 		F7D399B4F9E7283268C4CE32 /* Pods_MCatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F9903B355C2BEFAF0BFA72 /* Pods_MCatalog.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		100C796E3AE63AD4CEC10E2D /* Pods-MCatalog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCatalog.debug.xcconfig"; path = "Target Support Files/Pods-MCatalog/Pods-MCatalog.debug.xcconfig"; sourceTree = "<group>"; };
+		44645DA4223980BB00D35242 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Main.storyboard; path = MCatalog/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		44645DA6223A868B00D35242 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		44645DAA223A889100D35242 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		44645DAC223A8B4F00D35242 /* MovieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
 		44AA00D022305D1000B508B8 /* MCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AA00D422305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Modules/.gitkeep; sourceTree = "<group>"; };
 		44AA00D622305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = "Business Logic/.gitkeep"; sourceTree = "<group>"; };
@@ -36,6 +46,8 @@
 		44AA00F422305D1000B508B8 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		44AA00F522305D1000B508B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AA00F722305D1000B508B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44E40278223B29AD00B915FC /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		44E4027A223B2A6400B915FC /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		7C5F7D01699A58467035AF6C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		99F9903B355C2BEFAF0BFA72 /* Pods_MCatalog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MCatalog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84E891A50487F84C49090DF /* Pods-MCatalog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCatalog.release.xcconfig"; path = "Target Support Files/Pods-MCatalog/Pods-MCatalog.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,7 +71,6 @@
 				100C796E3AE63AD4CEC10E2D /* Pods-MCatalog.debug.xcconfig */,
 				C84E891A50487F84C49090DF /* Pods-MCatalog.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -100,6 +111,7 @@
 		44AA00D322305D1000B508B8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				44E40277223B28F300B915FC /* Movies */,
 				44AA00D422305D1000B508B8 /* .gitkeep */,
 			);
 			name = Modules;
@@ -117,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				44AA00D822305D1000B508B8 /* .gitkeep */,
+				44645DA6223A868B00D35242 /* MovieModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -152,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				44AA00DE22305D1000B508B8 /* .gitkeep */,
+				44E4027A223B2A6400B915FC /* ImageViewExtension.swift */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -226,6 +240,17 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		44E40277223B28F300B915FC /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				44645DAC223A8B4F00D35242 /* MovieTableViewController.swift */,
+				44645DAA223A889100D35242 /* MovieCell.swift */,
+				44645DA4223980BB00D35242 /* Main.storyboard */,
+				44E40278223B29AD00B915FC /* MovieDetailsViewController.swift */,
+			);
+			name = Movies;
+			sourceTree = "<group>";
+		};
 		F998528936E0DA92B44B9431 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +322,7 @@
 				44AA00F322305D1000B508B8 /* LaunchScreen.storyboard in Resources */,
 				44AA00F122305D1000B508B8 /* Assets.xcassets in Resources */,
 				44AA00EF22305D1000B508B8 /* Colors.xcassets in Resources */,
+				44645DA5223980BB00D35242 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +345,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, brew install swiftlint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, brew install swiftlint\"\nfi\n";
 		};
 		7D8E27C96DBE0CA327F45334 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -352,6 +378,11 @@
 			files = (
 				44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */,
 				7C5F772B666989DBF6613AE6 /* README.md in Sources */,
+				44645DAD223A8B4F00D35242 /* MovieTableViewController.swift in Sources */,
+				44E40279223B29AD00B915FC /* MovieDetailsViewController.swift in Sources */,
+				44645DAB223A889100D35242 /* MovieCell.swift in Sources */,
+				44E4027B223B2A6400B915FC /* ImageViewExtension.swift in Sources */,
+				44645DA7223A868B00D35242 /* MovieModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
