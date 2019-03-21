@@ -7,18 +7,20 @@
 //
 
 import UIKit
+import Moya
 
 class MovieTableViewController: UIViewController {
 
     @IBOutlet weak var movieTableView: UITableView!
-    private var movies: [MovieModel] = MovieModel.tmp()
+    private var movies: [MovieModel] = []
+
+    private let page = "1"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
         movieTableView.dataSource = self
         movieTableView.delegate = self
+        loadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -26,6 +28,27 @@ class MovieTableViewController: UIViewController {
             guard let viewController = segue.destination as? MovieDetailsViewController
                 else { fatalError("Incorrect destination view contoller")}
             viewController.movie = movies[movieTableView.indexPathForSelectedRow!.row]
+        }
+    }
+}
+
+// MARK: - loading content
+extension MovieTableViewController {
+
+    func loadData() {
+        movieDbApiProvider.request(.nowPlaying(page: self.page)) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
+                    self.movies = res.results
+                    self.movieTableView.reloadData()
+                } catch {
+                    print("error parsing")
+                }
+            case .failure:
+                debugPrint("Error during request via MOYA")
+            }
         }
     }
 
@@ -41,15 +64,13 @@ extension MovieTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.reuseIdentifier) as! MovieCell
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.reuseIdentifier) as? MovieCell else {
                 fatalError("DequeueReusableCell failed while casting")
         }
 
         let movie = self.movies[indexPath.row]
 
-        cell.movieImage.dowloadFromServer(link: movie.url!)
+        cell.movieImage.setImageFromLink(link: movie.getPosterUrl())
         cell.title.text = movie.title
         cell.descriptionText.text = movie.overview
         return cell

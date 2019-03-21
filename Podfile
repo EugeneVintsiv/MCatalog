@@ -6,6 +6,6 @@ target 'MCatalog' do
   use_frameworks!
 
   # Pods for MCatalog
-  # pod 'Moya', '~> 12.0'
+  pod 'Moya', '~> 12.0'
 
 end

@@ -1,0 +1,11 @@
+excluded:
+- Pods
+- MCatalog/MovieDBApi.swift
+- MCatalog/README.md
+
+force_cast: warning # implicitly
+
+identifier_name:
+    excluded: # excluded via string array
+        - id
+

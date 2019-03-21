@@ -21,8 +21,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //        movieImage.setImageWithURL(NSURL(string:(movie?.url)!)!)
-        movieImage.dowloadFromServer(link: (movie?.url!)!)
+        movieImage.setImageFromLink(link: (movie?.getBackgroundUrl())!)
         movieImage.contentMode = UIView.ContentMode.scaleAspectFill
         titleLabel.text = movie?.title
         descriptionText.text = movie?.overview
@@ -31,11 +30,5 @@ class MovieDetailsViewController: UIViewController {
         frame.size.height = descriptionText.contentSize.height
         descriptionText.frame = frame
         runTimeText.text = movie?.releaseDate
-        //        runTimeText.text = movie?.formattedDate()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
