@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class MovieDetailsViewController: UIViewController {
 
@@ -21,7 +22,9 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        movieImage.setImageFromLink(link: (movie?.getBackgroundUrl())!)
+//        movieImage.setImageFromLink(link: (movie?.getBackgroundUrl())!)
+        setImage()
+
         movieImage.contentMode = UIView.ContentMode.scaleAspectFill
         titleLabel.text = movie?.title
         descriptionText.text = movie?.overview
@@ -30,5 +33,14 @@ class MovieDetailsViewController: UIViewController {
         frame.size.height = descriptionText.contentSize.height
         descriptionText.frame = frame
         runTimeText.text = movie?.releaseDate
+    }
+
+    private func setImage() {
+        guard let url = URL(string: (movie?.getBackgroundUrl())!) else { return }
+        let resource = ImageResource(downloadURL: url, cacheKey: "\(movie?.backdropPath ?? "nil")")
+        let opts: KingfisherOptionsInfo = [
+            .memoryCacheExpiration(.seconds(300))
+        ]
+        movieImage.kf.setImage(with: resource, options: opts)
     }
 }

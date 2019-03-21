@@ -34,9 +34,9 @@ public struct MovieResponse: Codable {
 public struct MovieModel: Codable {
     public let id: Int
     public let title: String
-    private let posterPath: String?
+    public let posterPath: String?
     public let originalTitle: String
-    private let backdropPath: String?
+    public let backdropPath: String?
     public let overview: String
     public let releaseDate: String
 

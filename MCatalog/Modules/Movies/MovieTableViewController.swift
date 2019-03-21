@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import Kingfisher
 
 class MovieTableViewController: UIViewController {
 
@@ -108,11 +109,21 @@ extension MovieTableViewController: UITableViewDataSource {
         }
 
         let movie = self.movies[indexPath.row]
-
-        cell.movieImage.setImageFromLink(link: movie.getPosterUrl())
+        setImage(cell: cell, movie: movie)
         cell.title.text = movie.title
         cell.descriptionText.text = movie.overview
         return cell
+    }
+
+    private func setImage(cell: MovieCell, movie: MovieModel) {
+        let url = URL(string: movie.getPosterUrl())!
+        let processor = RoundCornerImageProcessor(cornerRadius: 20)
+        let resource = ImageResource(downloadURL: url, cacheKey: "\(movie.posterPath ?? "nil")")
+        let opts: KingfisherOptionsInfo = [
+            .memoryCacheExpiration(.seconds(300)),
+            .processor(processor)
+        ]
+        cell.movieImage.kf.setImage(with: resource, options: opts)
     }
 
 }
