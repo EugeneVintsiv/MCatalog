@@ -21,6 +21,8 @@ class MovieTableViewController: UIViewController {
         movieTableView.dataSource = self
         movieTableView.delegate = self
         loadData()
+
+        configureSearch()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,7 +36,6 @@ class MovieTableViewController: UIViewController {
 
 // MARK: - loading content
 extension MovieTableViewController {
-
     func loadData() {
         movieDbApiProvider.request(.nowPlaying(page: self.page)) { (result) in
             switch result {
@@ -44,11 +45,49 @@ extension MovieTableViewController {
                     self.movies = res.results
                     self.movieTableView.reloadData()
                 } catch {
-                    print("error parsing")
+                    print("error parsing: \(error)")
                 }
             case .failure:
                 debugPrint("Error during request via MOYA")
             }
+        }
+    }
+}
+
+// MARK: UISearchBarDelegate
+extension MovieTableViewController: UISearchBarDelegate {
+
+    private func configureSearch() {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = "Search..."
+        self.navigationItem.titleView = searchBar
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        loadData()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+
+            movieDbApiProvider.request(.search(searchStr: searchText, page: page)) { (result) in
+                switch result {
+                case .success(let response):
+                    do {
+                        let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
+                        self.movies = res.results
+                        self.movieTableView.reloadData()
+                    } catch {
+                        print("error parsing \(error)")
+                    }
+                case .failure:
+                    debugPrint("Error during request via MOYA")
+                    self.loadData()
+                }
+            }
+        } else {
+            self.loadData()
         }
     }
 
@@ -65,7 +104,7 @@ extension MovieTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.reuseIdentifier) as? MovieCell else {
-                fatalError("DequeueReusableCell failed while casting")
+            fatalError("DequeueReusableCell failed while casting")
         }
 
         let movie = self.movies[indexPath.row]

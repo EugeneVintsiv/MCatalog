@@ -34,18 +34,28 @@ public struct MovieResponse: Codable {
 public struct MovieModel: Codable {
     public let id: Int
     public let title: String
-    private let posterPath: String
+    private let posterPath: String?
     public let originalTitle: String
-    private let backdropPath: String
+    private let backdropPath: String?
     public let overview: String
     public let releaseDate: String
 
     public func getPosterUrl() -> String {
-        return "https://image.tmdb.org/t/p/w500\(posterPath)"
+        if posterPath != nil {
+            return "https://image.tmdb.org/t/p/w500\(posterPath!)"
+        }
+        if backdropPath != nil {
+            return "https://image.tmdb.org/t/p/w500\(backdropPath!)"
+        }
+        return "https://imgplaceholder.com/420x320?text=No+image"
     }
 
     public func getBackgroundUrl() -> String {
-        return "https://image.tmdb.org/t/p/w500\(backdropPath)"
+        if backdropPath != nil {
+            return "https://image.tmdb.org/t/p/w500\(backdropPath!)"
+        } else {
+            return getPosterUrl()
+        }
     }
 
     enum CodingKeys: String, CodingKey {
@@ -58,7 +68,7 @@ public struct MovieModel: Codable {
         case releaseDate = "release_date"
     }
 
-    public init(id: Int, title: String, posterPath: String, originalTitle: String, backdropPath: String, overview: String, releaseDate: String) {
+    public init(id: Int, title: String, posterPath: String?, originalTitle: String, backdropPath: String?, overview: String, releaseDate: String) {
         self.id = id
         self.title = title
         self.posterPath = posterPath
