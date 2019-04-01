@@ -40,21 +40,23 @@ public struct MovieModel: Codable {
     public let overview: String
     public let releaseDate: String
 
-    public func getPosterUrl() -> String {
+    private let baseImageDomainPath = "https://image.tmdb.org/t/p/w500"
+
+    public func getPosterLink() -> String {
         if posterPath != nil {
-            return "https://image.tmdb.org/t/p/w500\(posterPath!)"
+            return "\(baseImageDomainPath)\(posterPath!)"
         }
         if backdropPath != nil {
-            return "https://image.tmdb.org/t/p/w500\(backdropPath!)"
+            return "\(baseImageDomainPath)\(backdropPath!)"
         }
         return "https://imgplaceholder.com/420x320?text=No+image"
     }
 
-    public func getBackgroundUrl() -> String {
+    public func getBackgroundLink() -> String {
         if backdropPath != nil {
-            return "https://image.tmdb.org/t/p/w500\(backdropPath!)"
+            return "\(baseImageDomainPath)\(backdropPath!)"
         } else {
-            return getPosterUrl()
+            return getPosterLink()
         }
     }
 

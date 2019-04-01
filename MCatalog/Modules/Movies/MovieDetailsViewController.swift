@@ -21,26 +21,22 @@ class MovieDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        movie
+            .map {
+                titleLabel.text = $0.title
+                descriptionText.text = $0.overview
+                runTimeText.text = $0.releaseDate
 
-//        movieImage.setImageFromLink(link: (movie?.getBackgroundUrl())!)
-        setImage()
-
-        movieImage.contentMode = UIView.ContentMode.scaleAspectFill
-        titleLabel.text = movie?.title
-        descriptionText.text = movie?.overview
-
-        var frame = descriptionText.frame
-        frame.size.height = descriptionText.contentSize.height
-        descriptionText.frame = frame
-        runTimeText.text = movie?.releaseDate
+                setImage(movie: $0)
+            }
     }
 
-    private func setImage() {
-        guard let url = URL(string: (movie?.getBackgroundUrl())!) else { return }
-        let resource = ImageResource(downloadURL: url, cacheKey: "\(movie?.backdropPath ?? "nil")")
-        let opts: KingfisherOptionsInfo = [
-            .memoryCacheExpiration(.seconds(300))
-        ]
-        movieImage.kf.setImage(with: resource, options: opts)
+    private func setImage(movie: MovieModel) {
+        URL(string: movie.getPosterLink())
+                .map {
+                    movieImage.kf.setImage(with: $0)
+                    movieImage.contentMode = UIView.ContentMode.scaleAspectFill
+                }
     }
+
 }

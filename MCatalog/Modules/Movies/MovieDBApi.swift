@@ -9,8 +9,6 @@
 import Foundation
 import Moya
 
-let movieDbApiProvider = MoyaProvider<MovieDBApi>()
-
 enum MovieDBApi {
     case nowPlaying(page: String)
     case search(searchStr: String, page: String)

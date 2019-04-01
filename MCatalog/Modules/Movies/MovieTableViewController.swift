@@ -12,25 +12,56 @@ import Kingfisher
 
 class MovieTableViewController: UIViewController {
 
+    let movieDbApiProvider = MoyaProvider<MovieDBApi>()
+
     @IBOutlet weak var movieTableView: UITableView!
     private var movies: [MovieModel] = []
-
-    private let page = "1"
+    private var page = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         movieTableView.dataSource = self
         movieTableView.delegate = self
-        loadData()
-
+        movieTableView.prefetchDataSource = self
+        configureRefresh()
         configureSearch()
+
+        loadData()
+    }
+
+}
+
+// MARK: - search bar config
+extension MovieTableViewController {
+    private func configureRefresh() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
+        refreshControl.addTarget(self, action: Selector(("refresh")), for: .valueChanged)
+        movieTableView.refreshControl = refreshControl
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showMovieDetail" {
-            guard let viewController = segue.destination as? MovieDetailsViewController
-                else { fatalError("Incorrect destination view contoller")}
-            viewController.movie = movies[movieTableView.indexPathForSelectedRow!.row]
+        guard let movieRow  = movieTableView.indexPathForSelectedRow?.row else {return}
+        (segue.destination as? MovieDetailsViewController)?.movie = self.movies[movieRow]
+    }
+
+    @objc func refresh() {
+        refreshBegin(newText: "Refresh",
+                refreshEnd: { (_: Int) -> Void in
+                    self.movieTableView.refreshControl?.endRefreshing()
+                }
+        )
+    }
+
+    func refreshBegin(newText: String, refreshEnd:@escaping (Int) -> Void) {
+        DispatchQueue.global().async {
+            self.page = 1
+            self.movies = []
+            self.loadData()
+
+            DispatchQueue.main.async {
+                refreshEnd(0)
+            }
         }
     }
 }
@@ -38,18 +69,20 @@ class MovieTableViewController: UIViewController {
 // MARK: - loading content
 extension MovieTableViewController {
     func loadData() {
-        movieDbApiProvider.request(.nowPlaying(page: self.page)) { (result) in
+        movieDbApiProvider.request(.nowPlaying(page: String(self.page))) { (result) in
             switch result {
             case .success(let response):
                 do {
                     let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
-                    self.movies = res.results
+                    self.movies.append(contentsOf: res.results)
                     self.movieTableView.reloadData()
+                    self.page+=1
                 } catch {
                     print("error parsing: \(error)")
+                    return
                 }
             case .failure:
-                debugPrint("Error during request via MOYA")
+                debugPrint("Error during request")
             }
         }
     }
@@ -66,38 +99,62 @@ extension MovieTableViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.movies = []
         loadData()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-
-            movieDbApiProvider.request(.search(searchStr: searchText, page: page)) { (result) in
-                switch result {
-                case .success(let response):
-                    do {
-                        let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
-                        self.movies = res.results
-                        self.movieTableView.reloadData()
-                    } catch {
-                        print("error parsing \(error)")
-                    }
-                case .failure:
-                    debugPrint("Error during request via MOYA")
-                    self.loadData()
-                }
+            if searchText.count >= 3 {
+                _ = search(searchText: searchText)
             }
         } else {
+            self.movies = []
             self.loadData()
         }
     }
 
+    private func search(searchText: String) -> Cancellable {
+        return movieDbApiProvider.request(.search(searchStr: searchText, page: String(1))) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
+                    self.movies = res.results
+                    self.movieTableView.reloadData()
+                } catch {
+                    print("error parsing \(error)")
+                    return
+                }
+            case .failure:
+                debugPrint("Error during request")
+                self.loadData()
+            }
+        }
+    }
 }
 
+// MARK: - DataSourcePrefetching
+extension MovieTableViewController: UITableViewDataSourcePrefetching {
+
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell(for:)) {
+            loadData()
+        }
+    }
+
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row == (self.movies.count - 1)
+    }
+
+}
+
+// MARK: - UITableViewDelegate
 extension MovieTableViewController: UITableViewDelegate {
 
 }
 
+// MARK: - TableViewDataSource
 extension MovieTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.movies.count
@@ -116,14 +173,8 @@ extension MovieTableViewController: UITableViewDataSource {
     }
 
     private func setImage(cell: MovieCell, movie: MovieModel) {
-        let url = URL(string: movie.getPosterUrl())!
-        let processor = RoundCornerImageProcessor(cornerRadius: 20)
-        let resource = ImageResource(downloadURL: url, cacheKey: "\(movie.posterPath ?? "nil")")
-        let opts: KingfisherOptionsInfo = [
-            .memoryCacheExpiration(.seconds(300)),
-            .processor(processor)
-        ]
-        cell.movieImage.kf.setImage(with: resource, options: opts)
+        let url = URL(string: movie.getPosterLink())
+        cell.movieImage.kf.setImage(with: url)
     }
 
 }
