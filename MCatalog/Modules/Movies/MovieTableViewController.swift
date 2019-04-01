@@ -17,6 +17,8 @@ class MovieTableViewController: UIViewController {
     @IBOutlet weak var movieTableView: UITableView!
     private var movies: [MovieModel] = []
     private var page = 1
+    private let searchBar = UISearchBar()
+    private static let minLengthForSearch = 3
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class MovieTableViewController: UIViewController {
         configureRefresh()
         configureSearch()
 
-        loadData()
+        loadDataWithReset()
     }
 
 }
@@ -46,23 +48,23 @@ extension MovieTableViewController {
     }
 
     @objc func refresh() {
-        refreshBegin(newText: "Refresh",
-                refreshEnd: { (_: Int) -> Void in
-                    self.movieTableView.refreshControl?.endRefreshing()
-                }
-        )
+        if self.searchBar.text!.count >= MovieTableViewController.minLengthForSearch {
+            self.search(searchText: self.searchBar.text!)
+        } else {
+            self.loadDataWithReset()
+        }
+
+        self.movieTableView.refreshControl?.endRefreshing()
     }
 
-    func refreshBegin(newText: String, refreshEnd:@escaping (Int) -> Void) {
-        DispatchQueue.global().async {
-            self.page = 1
-            self.movies = []
-            self.loadData()
+    private func resetParams() {
+        self.page = 1
+        self.movies = []
+    }
 
-            DispatchQueue.main.async {
-                refreshEnd(0)
-            }
-        }
+    private func loadDataWithReset() {
+        resetParams()
+        loadData()
     }
 }
 
@@ -92,30 +94,27 @@ extension MovieTableViewController {
 extension MovieTableViewController: UISearchBarDelegate {
 
     private func configureSearch() {
-        let searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.placeholder = "Search..."
         self.navigationItem.titleView = searchBar
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.movies = []
-        loadData()
+        loadDataWithReset()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            if searchText.count >= 3 {
-                _ = search(searchText: searchText)
-            }
+            search(searchText: searchText)
         } else {
-            self.movies = []
-            self.loadData()
+            loadDataWithReset()
         }
     }
 
-    private func search(searchText: String) -> Cancellable {
-        return movieDbApiProvider.request(.search(searchStr: searchText, page: String(1))) { (result) in
+    private func search(searchText: String) {
+        if searchText.count < MovieTableViewController.minLengthForSearch { return }
+
+        movieDbApiProvider.request(.search(searchStr: searchText, page: String(1))) { (result) in
             switch result {
             case .success(let response):
                 do {
@@ -128,7 +127,7 @@ extension MovieTableViewController: UISearchBarDelegate {
                 }
             case .failure:
                 debugPrint("Error during request")
-                self.loadData()
+                loadDataWithReset()
             }
         }
     }
