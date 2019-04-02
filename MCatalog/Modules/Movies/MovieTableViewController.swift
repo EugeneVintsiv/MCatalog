@@ -127,7 +127,7 @@ extension MovieTableViewController: UISearchBarDelegate {
                 }
             case .failure:
                 debugPrint("Error during request")
-                loadDataWithReset()
+                self.loadDataWithReset()
             }
         }
     }
