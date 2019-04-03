@@ -9,6 +9,7 @@
 import UIKit
 import Moya
 import Kingfisher
+import DZNEmptyDataSet
 
 class MovieTableViewController: UIViewController {
 
@@ -22,13 +23,20 @@ class MovieTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieTableView.dataSource = self
-        movieTableView.delegate = self
-        movieTableView.prefetchDataSource = self
+        setupDelegations()
         configureRefresh()
         configureSearch()
 
         loadDataWithReset()
+    }
+
+    private func setupDelegations() {
+        movieTableView.dataSource = self
+        movieTableView.delegate = self
+        movieTableView.prefetchDataSource = self
+        movieTableView.emptyDataSetSource = self
+        movieTableView.emptyDataSetDelegate = self
+        movieTableView.tableFooterView = UIView()
     }
 
 }
@@ -191,3 +199,21 @@ extension MovieTableViewController: UITableViewDataSource {
 
 }
 
+// MARK: - Deal with the empty data set
+extension MovieTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+
+    // Add title for empty dataset
+    func title(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
+        let str = "No movies"
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+    // Add description/subtitle on empty dataset
+    func description(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
+        let str = "There are no movies found."
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+}

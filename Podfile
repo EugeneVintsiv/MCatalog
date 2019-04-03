@@ -8,5 +8,6 @@ target 'MCatalog' do
   # Pods for MCatalog
   pod 'Moya', '~> 12.0'
   pod 'Kingfisher', '~> 5.0'
+  pod 'DZNEmptyDataSet'
 
 end
