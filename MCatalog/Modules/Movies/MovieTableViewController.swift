@@ -104,6 +104,7 @@ extension MovieTableViewController: UISearchBarDelegate {
     private func configureSearch() {
         searchBar.delegate = self
         searchBar.placeholder = "Search..."
+        searchBar.backgroundColor = UIColor(named: "LaunchScreenBackground")! //color from assets
         self.navigationItem.titleView = searchBar
     }
 

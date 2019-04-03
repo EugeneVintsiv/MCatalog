@@ -16,6 +16,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var runTimeText: UITextView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
     var movie: MovieModel?
 
@@ -29,6 +30,8 @@ class MovieDetailsViewController: UIViewController {
         descriptionText.text = movie.overview
         runTimeText.text = "Release date: " + movie.releaseDate
         movieImage.kf.setImage(with: movie.posterUrl())
+        scrollView.layer.cornerRadius = 11
+        scrollView.layer.masksToBounds = true
     }
 
 }
