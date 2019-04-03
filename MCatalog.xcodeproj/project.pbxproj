@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44359E6522555A4B00B1F501 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44359E6422555A4B00B1F501 /* VideoModel.swift */; };
 		44AA00EB22305D1000B508B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EA22305D1000B508B8 /* Localizable.strings */; };
 		44AA00EF22305D1000B508B8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EE22305D1000B508B8 /* Colors.xcassets */; };
 		44AA00F122305D1000B508B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F022305D1000B508B8 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		100C796E3AE63AD4CEC10E2D /* Pods-MCatalog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCatalog.debug.xcconfig"; path = "Target Support Files/Pods-MCatalog/Pods-MCatalog.debug.xcconfig"; sourceTree = "<group>"; };
+		44359E6422555A4B00B1F501 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoModel.swift; path = Models/VideoModel.swift; sourceTree = "<group>"; };
 		44AA00D022305D1000B508B8 /* MCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AA00D422305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Modules/.gitkeep; sourceTree = "<group>"; };
 		44AA00D622305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = "Business Logic/.gitkeep"; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				44AA00D822305D1000B508B8 /* .gitkeep */,
 				7C5F727B4FBBAE5B230403C9 /* MovieModel.swift */,
+				44359E6422555A4B00B1F501 /* VideoModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				44C5AE3922528C61004DE9C9 /* MovieCell.swift in Sources */,
 				44C5AE3E22528C72004DE9C9 /* MovieDBApi.swift in Sources */,
 				44C5AE4022528C72004DE9C9 /* MovieDetailsViewController.swift in Sources */,
+				44359E6522555A4B00B1F501 /* VideoModel.swift in Sources */,
 				44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */,
 				7C5F772B666989DBF6613AE6 /* README.md in Sources */,
 				7C5F7DBB89ECB285F4B2A2B0 /* MovieModel.swift in Sources */,

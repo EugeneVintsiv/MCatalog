@@ -12,6 +12,7 @@ import Moya
 enum MovieDBApi {
     case nowPlaying(page: String)
     case search(searchStr: String, page: String)
+    case video(id: Int)
 
     private var apiKey: String {
         return "7a312711d0d45c9da658b9206f3851dd"
@@ -29,6 +30,8 @@ extension MovieDBApi: TargetType {
             return "3/movie/now_playing"
         case .search:
             return "3/search/movie"
+        case .video(let id):
+            return "\(id)/videos"
         }
 
     }
@@ -42,6 +45,8 @@ extension MovieDBApi: TargetType {
             return NSDataAsset(name: "sampleMoviesPageJson")!.data
         case .search:
             return NSDataAsset(name: "sampleMoviesPageJson")!.data
+        case .video:
+            return NSDataAsset(name: "sampleMoviesPageJson")!.data
         }
 
     }
@@ -54,8 +59,10 @@ extension MovieDBApi: TargetType {
         case .search(let searchStr, let page):
             let params = ["api_key": apiKey, "page": page, "query": searchStr]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .video:
+            let params = ["api_key": apiKey]
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
-
     }
 
     var headers: [String: String]? {
