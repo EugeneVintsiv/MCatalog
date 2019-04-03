@@ -31,7 +31,7 @@ extension MovieDBApi: TargetType {
         case .search:
             return "3/search/movie"
         case .video(let id):
-            return "\(id)/videos"
+            return "/3/movie/\(id)/videos"
         }
 
     }

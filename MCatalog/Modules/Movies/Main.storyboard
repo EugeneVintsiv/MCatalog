@@ -15,9 +15,10 @@
         <scene sceneID="eZo-2P-Mm2">
             <objects>
                 <navigationController id="r1L-RA-U7K" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dLd-Mc-5Km">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="dLd-Mc-5Km">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="mainBgColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="UEt-7F-kb7" kind="relationship" relationship="rootViewController" id="jyG-IA-qEL"/>
@@ -32,7 +33,7 @@
             <objects>
                 <viewController id="UEt-7F-kb7" userLabel="Movies Table " customClass="MovieTableViewController" customModule="MCatalog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" id="GPI-n5-bFP" userLabel="MovieTableView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="mainBgColor"/>
                         <prototypes>
@@ -106,21 +107,21 @@
             <objects>
                 <viewController id="kXb-g1-OAj" userLabel="Movie Details" customClass="MovieDetailsViewController" customModule="MCatalog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CAH-6o-uqR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-2u-Hle">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKl-nF-fIy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="212"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="212"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="212" id="Cwp-4Y-SGu"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgX-HW-XE0">
-                                <rect key="frame" x="8" y="467" width="351" height="200"/>
+                                <rect key="frame" x="8" y="403" width="351" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bg-sM-Nfx" userLabel="Title">
                                         <rect key="frame" x="8" y="8" width="335" height="21"/>
