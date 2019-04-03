@@ -35,23 +35,41 @@ class MovieDetailsViewController: UIViewController {
         descriptionText.text = movie.overview
         runTimeText.text = "Release date: " + movie.releaseDate
         movieImage.kf.setImage(with: movie.posterUrl())
-        getVideo(id: movie.id)
+
+        getVideo(id: movie.id) { url in
+            guard let url = url else { fatalError("Could not get video url") }
+            guard let video = URL(string: url), let cover = movie.backgroundUrl() else {return}
+        }
 
 //        scrollView settings
         scrollView.layer.cornerRadius = 11
         scrollView.layer.masksToBounds = true
     }
 
-    private func getVideo(id: Int) {
-        print(id)
+    private func getVideo(id: Int, completion: @escaping (String?) -> Void) {
         provider.request(.video(id: id)) { result in
             switch result {
             case let .success(response):
                 do {
                     let res: VideoModel = try response.map(VideoModel.self) //parsing
-                    let filtered = res.results.filter({ (videoData: VideoResult) in
-                        return videoData.site == "YouTube" && videoData.type == "Trailer"
-                    }).prefix(1)
+                    let filtered = self.getFilteredVideoDetails(res: res)
+
+                    let youtubeLink = "https://www.youtube.com/watch?v="
+                    guard let videoURL = URL(string: youtubeLink + filtered[0].key) else { return }
+
+                    Youtube.h264videosWithYoutubeURL(videoURL) { videoInfo, _ in
+                        if let videoURLString = videoInfo?["url"] as? String {
+                            completion(videoURLString)
+                        } else {
+                            let youtubePlaceholderVideo = "https://www.youtube.com/watch?v=NpEaa2P7qZI"
+                            guard let placeHolderUrl = URL(string: youtubePlaceholderVideo) else { return }
+                            Youtube.h264videosWithYoutubeURL(placeHolderUrl) { videoInfo, _ in
+                                if let placeHolderVideoUrl = videoInfo?["url"] as? String {
+                                    completion(placeHolderVideoUrl)
+                                }
+                            }
+                        }
+                    }
                 } catch let err {
                     print(err)
                 }
@@ -60,5 +78,11 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
+    }
+
+    private func getFilteredVideoDetails(res: VideoModel) -> [VideoResult] {
+        return res.results.filter({ (videoData: VideoResult) in
+            return videoData.site == "YouTube" && videoData.type == "Trailer"
+        })
     }
 }

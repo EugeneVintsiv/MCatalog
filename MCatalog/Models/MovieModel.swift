@@ -46,6 +46,10 @@ public struct MovieModel: Codable {
         return URL(string: getPosterLink())
     }
 
+    public func backgroundUrl() -> URL? {
+        return URL(string: "\(baseImageDomainPath)\(backdropPath!)")
+    }
+
     private func getPosterLink() -> String {
         if posterPath != nil {
             return "\(baseImageDomainPath)\(posterPath!)"
