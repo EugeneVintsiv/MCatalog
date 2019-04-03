@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		44359E6522555A4B00B1F501 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44359E6422555A4B00B1F501 /* VideoModel.swift */; };
 		44359E672255690100B1F501 /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44359E662255690100B1F501 /* Youtube.swift */; };
+		44359E6922557C4C00B1F501 /* BMPlayerCustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44359E6822557C4C00B1F501 /* BMPlayerCustomViews.swift */; };
 		44AA00EB22305D1000B508B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EA22305D1000B508B8 /* Localizable.strings */; };
 		44AA00EF22305D1000B508B8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00EE22305D1000B508B8 /* Colors.xcassets */; };
 		44AA00F122305D1000B508B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AA00F022305D1000B508B8 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		100C796E3AE63AD4CEC10E2D /* Pods-MCatalog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCatalog.debug.xcconfig"; path = "Target Support Files/Pods-MCatalog/Pods-MCatalog.debug.xcconfig"; sourceTree = "<group>"; };
 		44359E6422555A4B00B1F501 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoModel.swift; path = Models/VideoModel.swift; sourceTree = "<group>"; };
 		44359E662255690100B1F501 /* Youtube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Youtube.swift; path = Library/Utilities/Youtube.swift; sourceTree = "<group>"; };
+		44359E6822557C4C00B1F501 /* BMPlayerCustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BMPlayerCustomViews.swift; path = Library/Utilities/BMPlayerCustomViews.swift; sourceTree = "<group>"; };
 		44AA00D022305D1000B508B8 /* MCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AA00D422305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = Modules/.gitkeep; sourceTree = "<group>"; };
 		44AA00D622305D1000B508B8 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitkeep; path = "Business Logic/.gitkeep"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				44AA00E222305D1000B508B8 /* .gitkeep */,
 				44359E662255690100B1F501 /* Youtube.swift */,
+				44359E6822557C4C00B1F501 /* BMPlayerCustomViews.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -390,20 +393,26 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MCatalog/Pods-MCatalog-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BMPlayer/BMPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BMPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -420,6 +429,7 @@
 				44359E672255690100B1F501 /* Youtube.swift in Sources */,
 				44C5AE3922528C61004DE9C9 /* MovieCell.swift in Sources */,
 				44C5AE3E22528C72004DE9C9 /* MovieDBApi.swift in Sources */,
+				44359E6922557C4C00B1F501 /* BMPlayerCustomViews.swift in Sources */,
 				44C5AE4022528C72004DE9C9 /* MovieDetailsViewController.swift in Sources */,
 				44359E6522555A4B00B1F501 /* VideoModel.swift in Sources */,
 				44AA00F622305D1000B508B8 /* AppDelegate.swift in Sources */,

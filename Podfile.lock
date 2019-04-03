@@ -1,5 +1,12 @@
 PODS:
   - Alamofire (4.8.2)
+  - BMPlayer (1.2.1):
+    - BMPlayer/Full (= 1.2.1)
+  - BMPlayer/Core (1.2.1)
+  - BMPlayer/Full (1.2.1):
+    - BMPlayer/Core
+    - NVActivityIndicatorView (~> 4.6.1)
+    - SnapKit (~> 4.2.0)
   - DZNEmptyDataSet (1.8.1)
   - Kingfisher (5.3.0)
   - Moya (12.0.1):
@@ -7,9 +14,14 @@ PODS:
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
+  - NVActivityIndicatorView (4.6.1):
+    - NVActivityIndicatorView/Presenter (= 4.6.1)
+  - NVActivityIndicatorView/Presenter (4.6.1)
   - Result (4.1.0)
+  - SnapKit (4.2.0)
 
 DEPENDENCIES:
+  - BMPlayer (~> 1.2.0)
   - DZNEmptyDataSet
   - Kingfisher (~> 5.0)
   - Moya (~> 12.0)
@@ -17,18 +29,24 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - BMPlayer
     - DZNEmptyDataSet
     - Kingfisher
     - Moya
+    - NVActivityIndicatorView
     - Result
+    - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  BMPlayer: ea12f9d82e37f968dea2078b5e58e356ee4439d8
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Kingfisher: 4692c783ffb99e9e2e40a6eb3e518c3b96c6fa8c
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 6f005b49c1e5bb6a07c97c26faa4eaa95bb0ecd6
+PODFILE CHECKSUM: 62febe45c8f0dfe6be2e8b90f0dfad7b69bec022
 
 COCOAPODS: 1.6.0

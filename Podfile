@@ -9,5 +9,6 @@ target 'MCatalog' do
   pod 'Moya', '~> 12.0'
   pod 'Kingfisher', '~> 5.0'
   pod 'DZNEmptyDataSet'
+  pod 'BMPlayer', '~> 1.2.0'
 
 end

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 import Moya
+import BMPlayer
 
 class MovieDetailsViewController: UIViewController {
 
@@ -23,6 +24,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieView: UIView!
 
     var movie: MovieModel?
+    private var player: BMPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +38,41 @@ class MovieDetailsViewController: UIViewController {
         runTimeText.text = "Release date: " + movie.releaseDate
         movieImage.kf.setImage(with: movie.posterUrl())
 
+        setupPlayer()
+
         getVideo(id: movie.id) { url in
             guard let url = url else { fatalError("Could not get video url") }
             guard let video = URL(string: url), let cover = movie.backgroundUrl() else {return}
+            self.addVideo(videoURL: video, coverURL: cover, title: movie.title)
+            self.movieView.isHidden = false
         }
 
 //        scrollView settings
         scrollView.layer.cornerRadius = 11
         scrollView.layer.masksToBounds = true
+    }
+
+    func setupPlayer() {
+        // Setup video player configurations
+        BMPlayerConf.shouldAutoPlay = false
+        BMPlayerConf.topBarShowInCase = .always
+
+        player = BMPlayer(customControlView: BMPlayerCustomControlView())
+        player.backBlock = { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        self.movieView.addSubview(self.player)
+        self.player.snp.makeConstraints { make in
+            make.top.equalTo(self.movieView)
+            make.left.right.equalTo(self.movieView)
+            make.height.equalTo(self.movieView.frame.height)
+        }
+    }
+
+    func addVideo(videoURL: URL, coverURL: URL, title: String) {
+        let video = BMPlayerResource(url: videoURL, name: title, cover: coverURL)
+        player.setVideo(resource: video)
     }
 
     private func getVideo(id: Int, completion: @escaping (String?) -> Void) {
