@@ -21,22 +21,14 @@ class MovieDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        movie
-            .map {
-                titleLabel.text = $0.title
-                descriptionText.text = $0.overview
-                runTimeText.text = $0.releaseDate
-
-                setImage(movie: $0)
-            }
+        movie.map { fillFields(movie: $0) }
     }
 
-    private func setImage(movie: MovieModel) {
-        URL(string: movie.getPosterLink())
-                .map {
-                    movieImage.kf.setImage(with: $0)
-                    movieImage.contentMode = UIView.ContentMode.scaleAspectFill
-                }
+    private func fillFields(movie: MovieModel) {
+        titleLabel.text = movie.title
+        descriptionText.text = movie.overview
+        runTimeText.text = "Release date: " + movie.releaseDate
+        movieImage.kf.setImage(with: movie.posterUrl())
     }
 
 }

@@ -35,46 +35,40 @@ public struct MovieModel: Codable {
     public let id: Int
     public let title: String
     public let posterPath: String?
-    public let originalTitle: String
     public let backdropPath: String?
     public let overview: String
     public let releaseDate: String
 
     private let baseImageDomainPath = "https://image.tmdb.org/t/p/w500"
+    private let imagePlaceholderLink = "https://imgplaceholder.com/420x320?text=No+image"
 
-    public func getPosterLink() -> String {
+    public func posterUrl() -> URL? {
+        return URL(string: getPosterLink())
+    }
+
+    private func getPosterLink() -> String {
         if posterPath != nil {
             return "\(baseImageDomainPath)\(posterPath!)"
         }
         if backdropPath != nil {
             return "\(baseImageDomainPath)\(backdropPath!)"
         }
-        return "https://imgplaceholder.com/420x320?text=No+image"
-    }
-
-    public func getBackgroundLink() -> String {
-        if backdropPath != nil {
-            return "\(baseImageDomainPath)\(backdropPath!)"
-        } else {
-            return getPosterLink()
-        }
+        return imagePlaceholderLink
     }
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
         case posterPath = "poster_path"
-        case originalTitle = "original_title"
         case backdropPath = "backdrop_path"
         case overview = "overview"
         case releaseDate = "release_date"
     }
 
-    public init(id: Int, title: String, posterPath: String?, originalTitle: String, backdropPath: String?, overview: String, releaseDate: String) {
+    public init(id: Int, title: String, posterPath: String?, backdropPath: String?, overview: String, releaseDate: String) {
         self.id = id
         self.title = title
         self.posterPath = posterPath
-        self.originalTitle = originalTitle
         self.backdropPath = backdropPath
         self.overview = overview
         self.releaseDate = releaseDate

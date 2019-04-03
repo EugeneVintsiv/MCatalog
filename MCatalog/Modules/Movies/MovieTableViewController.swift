@@ -165,15 +165,29 @@ extension MovieTableViewController: UITableViewDataSource {
         }
 
         let movie = self.movies[indexPath.row]
-        setImage(cell: cell, movie: movie)
-        cell.title.text = movie.title
-        cell.descriptionText.text = movie.overview
+        fillFields(movie: movie, cell: cell)
         return cell
     }
 
-    private func setImage(cell: MovieCell, movie: MovieModel) {
-        let url = URL(string: movie.getPosterLink())
-        cell.movieImage.kf.setImage(with: url)
+    private func fillFields(movie: MovieModel, cell: MovieCell) {
+        cell.movieImage.kf.setImage(with: movie.posterUrl())
+        cell.title.text = movie.title
+        cell.descriptionText.text = movie.overview
+
+        if searchBar.text!.count >= MovieTableViewController.minLengthForSearch {
+            cell.title.attributedText = highlight(searchStr: searchBar.text!, text: movie.title)
+        }
+    }
+
+    private func highlight(searchStr: String, text: String) -> NSAttributedString {
+        let attrString: NSMutableAttributedString = NSMutableAttributedString(string: text)
+
+        let range: NSRange = (text as NSString).range(of: searchStr, options: NSString.CompareOptions.caseInsensitive)
+        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        attrString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: range)
+
+        return attrString
     }
 
 }
+
