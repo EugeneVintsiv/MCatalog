@@ -34,7 +34,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" id="GPI-n5-bFP" userLabel="MovieTableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="mainBgColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="200" id="IXg-dA-Gn9" userLabel="MovieCell" customClass="MovieCell" customModule="MCatalog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="200"/>
@@ -50,8 +50,8 @@
                                             </constraints>
                                         </imageView>
                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gb-We-aJt">
-                                            <rect key="frame" x="116" y="46" width="205" height="133.5"/>
-                                            <color key="backgroundColor" name="LaunchScreenBackground"/>
+                                            <rect key="frame" x="116" y="46" width="225" height="133.5"/>
+                                            <color key="backgroundColor" name="mainBgColor"/>
                                             <inset key="scrollIndicatorInsets" minX="45" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -60,7 +60,7 @@
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgL-SG-90l">
                                             <rect key="frame" x="116" y="20" width="205" height="18"/>
-                                            <color key="backgroundColor" name="LaunchScreenBackground"/>
+                                            <color key="backgroundColor" name="mainBgColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="4bs-AE-FKx"/>
                                             </constraints>
@@ -78,11 +78,11 @@
                                         <constraint firstItem="SgL-SG-90l" firstAttribute="leading" secondItem="snN-A3-Zuj" secondAttribute="trailing" constant="8" id="Pys-p9-pXa"/>
                                         <constraint firstItem="9gb-We-aJt" firstAttribute="top" secondItem="SgL-SG-90l" secondAttribute="bottom" constant="8" symbolic="YES" id="R4y-Tw-mkt"/>
                                         <constraint firstAttribute="bottom" secondItem="9gb-We-aJt" secondAttribute="bottom" constant="20" symbolic="YES" id="o8v-vK-YFn"/>
-                                        <constraint firstAttribute="trailing" secondItem="9gb-We-aJt" secondAttribute="trailing" constant="20" symbolic="YES" id="pq5-N4-VEJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="9gb-We-aJt" secondAttribute="trailing" id="pq5-N4-VEJ"/>
                                         <constraint firstItem="snN-A3-Zuj" firstAttribute="top" secondItem="Fk1-pn-HGI" secondAttribute="top" constant="8" id="uFM-AV-a38"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" name="LaunchScreenBackground"/>
+                                <color key="backgroundColor" name="mainBgColor"/>
                                 <connections>
                                     <outlet property="descriptionText" destination="9gb-We-aJt" id="bcL-Vd-KEX"/>
                                     <outlet property="movieImage" destination="snN-A3-Zuj" id="jPG-aR-Vct"/>
@@ -112,7 +112,14 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0A-2u-Hle">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgX-HW-XE0">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKl-nF-fIy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="212"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="212" id="Cwp-4Y-SGu"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgX-HW-XE0">
                                 <rect key="frame" x="8" y="467" width="351" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bg-sM-Nfx" userLabel="Title">
@@ -145,7 +152,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" name="LaunchScreenBackground"/>
+                                <color key="backgroundColor" name="mainBgColor"/>
                                 <constraints>
                                     <constraint firstItem="2Bg-sM-Nfx" firstAttribute="top" secondItem="XgX-HW-XE0" secondAttribute="topMargin" id="3VQ-ZF-ehI"/>
                                     <constraint firstItem="Im0-Sk-CbY" firstAttribute="centerX" secondItem="Vpc-LF-aTm" secondAttribute="centerX" id="A9o-jg-7tA"/>
@@ -171,10 +178,14 @@
                         <constraints>
                             <constraint firstItem="XgX-HW-XE0" firstAttribute="leading" secondItem="IOe-NH-hKN" secondAttribute="leading" constant="8" id="2tB-L2-EfW"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="leading" secondItem="IOe-NH-hKN" secondAttribute="leading" id="52k-qG-gVS"/>
+                            <constraint firstItem="IOe-NH-hKN" firstAttribute="trailing" secondItem="SKl-nF-fIy" secondAttribute="trailing" id="AUp-PX-0gj"/>
+                            <constraint firstItem="SKl-nF-fIy" firstAttribute="centerX" secondItem="IOe-NH-hKN" secondAttribute="centerX" id="AkA-sZ-sjo"/>
+                            <constraint firstItem="SKl-nF-fIy" firstAttribute="leading" secondItem="IOe-NH-hKN" secondAttribute="leading" id="GrY-dl-bf7"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="top" secondItem="IOe-NH-hKN" secondAttribute="top" id="Qhp-7i-vvY"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="width" secondItem="IOe-NH-hKN" secondAttribute="width" id="Qt8-tE-LrY"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="height" secondItem="IOe-NH-hKN" secondAttribute="height" id="SfH-O8-coN"/>
                             <constraint firstItem="XgX-HW-XE0" firstAttribute="top" secondItem="IOe-NH-hKN" secondAttribute="bottom" constant="-200" id="vox-fs-O9x"/>
+                            <constraint firstItem="SKl-nF-fIy" firstAttribute="top" secondItem="IOe-NH-hKN" secondAttribute="top" id="wIx-X1-bWP"/>
                             <constraint firstItem="XgX-HW-XE0" firstAttribute="trailing" secondItem="IOe-NH-hKN" secondAttribute="trailing" constant="-16" id="xPs-AS-OCu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IOe-NH-hKN"/>
@@ -182,6 +193,7 @@
                     <connections>
                         <outlet property="descriptionText" destination="Im0-Sk-CbY" id="anr-RU-684"/>
                         <outlet property="movieImage" destination="x0A-2u-Hle" id="LNk-ER-KKw"/>
+                        <outlet property="movieView" destination="SKl-nF-fIy" id="jkU-kf-rHz"/>
                         <outlet property="runTimeText" destination="Vpc-LF-aTm" id="MLz-HO-Qyt"/>
                         <outlet property="scrollView" destination="XgX-HW-XE0" id="uI9-Md-zfF"/>
                         <outlet property="titleLabel" destination="2Bg-sM-Nfx" id="OID-LY-icf"/>
@@ -194,7 +206,7 @@
     </scenes>
     <resources>
         <image name="placeholder_large" width="500" height="500"/>
-        <namedColor name="LaunchScreenBackground">
+        <namedColor name="mainBgColor">
             <color red="0.13333333333333333" green="0.1803921568627451" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

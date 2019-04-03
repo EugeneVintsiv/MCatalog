@@ -17,6 +17,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var runTimeText: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var movieView: UIView!
 
     var movie: MovieModel?
 

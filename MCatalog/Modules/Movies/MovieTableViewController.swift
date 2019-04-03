@@ -45,7 +45,8 @@ class MovieTableViewController: UIViewController {
 extension MovieTableViewController {
     private func configureRefresh() {
         let refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...", attributes: attributes)
         refreshControl.addTarget(self, action: Selector(("refresh")), for: .valueChanged)
         movieTableView.refreshControl = refreshControl
     }
@@ -104,7 +105,7 @@ extension MovieTableViewController: UISearchBarDelegate {
     private func configureSearch() {
         searchBar.delegate = self
         searchBar.placeholder = "Search..."
-        searchBar.backgroundColor = UIColor(named: "LaunchScreenBackground")! //color from assets
+        searchBar.backgroundColor = UIColor(named: "mainBgColor")! //color from assets
         self.navigationItem.titleView = searchBar
     }
 
@@ -175,6 +176,10 @@ extension MovieTableViewController: UITableViewDataSource {
 
         let movie = self.movies[indexPath.row]
         fillFields(movie: movie, cell: cell)
+//        cell.selectionStyle = UITableViewCell.SelectionStyle.hash("2C3B53");
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "2C3B53")
+        cell.selectedBackgroundView = view
         return cell
     }
 
