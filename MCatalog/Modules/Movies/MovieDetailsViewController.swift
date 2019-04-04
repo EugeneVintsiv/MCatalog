@@ -9,12 +9,9 @@
 import Foundation
 import UIKit
 import Kingfisher
-import Moya
 import BMPlayer
 
 class MovieDetailsViewController: UIViewController {
-
-    let provider = MoyaProvider<MovieDBApi>()
 
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var movieImage: UIImageView!
@@ -39,20 +36,14 @@ class MovieDetailsViewController: UIViewController {
         movieImage.kf.setImage(with: movie.posterUrl())
 
         setupPlayer()
-
-        getVideo(id: movie.id) { url in
-            guard let url = url else { fatalError("Could not get video url") }
-            guard let video = URL(string: url), let cover = movie.backgroundUrl() else {return}
-            self.addVideo(videoURL: video, coverURL: cover, title: movie.title)
-            self.movieView.isHidden = false
-        }
+        loadVideo(movie: movie)
 
 //        scrollView settings
         scrollView.layer.cornerRadius = 11
         scrollView.layer.masksToBounds = true
     }
 
-    func setupPlayer() {
+    private func setupPlayer() {
         // Setup video player configurations
         BMPlayerConf.shouldAutoPlay = false
         BMPlayerConf.topBarShowInCase = .always
@@ -70,48 +61,16 @@ class MovieDetailsViewController: UIViewController {
         }
     }
 
-    func addVideo(videoURL: URL, coverURL: URL, title: String) {
+    private func loadVideo(movie: MovieModel) {
+        NetworkAPI.shared.videoLink(id: movie.id) { url in
+            guard let url = url else { fatalError("Could not get video url") }
+            guard let video = URL(string: url), let cover = movie.backgroundUrl() else {return}
+            self.addVideo(videoURL: video, coverURL: cover, title: movie.title)
+        }
+    }
+
+    private func addVideo(videoURL: URL, coverURL: URL, title: String) {
         let video = BMPlayerResource(url: videoURL, name: title, cover: coverURL)
         player.setVideo(resource: video)
-    }
-
-    private func getVideo(id: Int, completion: @escaping (String?) -> Void) {
-        provider.request(.video(id: id)) { result in
-            switch result {
-            case let .success(response):
-                do {
-                    let res: VideoModel = try response.map(VideoModel.self) //parsing
-                    let filtered = self.getFilteredVideoDetails(res: res)
-
-                    let youtubeLink = "https://www.youtube.com/watch?v="
-                    guard let videoURL = URL(string: youtubeLink + filtered[0].key) else { return }
-
-                    Youtube.h264videosWithYoutubeURL(videoURL) { videoInfo, _ in
-                        if let videoURLString = videoInfo?["url"] as? String {
-                            completion(videoURLString)
-                        } else {
-                            let youtubePlaceholderVideo = "https://www.youtube.com/watch?v=NpEaa2P7qZI"
-                            guard let placeHolderUrl = URL(string: youtubePlaceholderVideo) else { return }
-                            Youtube.h264videosWithYoutubeURL(placeHolderUrl) { videoInfo, _ in
-                                if let placeHolderVideoUrl = videoInfo?["url"] as? String {
-                                    completion(placeHolderVideoUrl)
-                                }
-                            }
-                        }
-                    }
-                } catch let err {
-                    print(err)
-                }
-            case let .failure(error):
-                print(error)
-            }
-        }
-
-    }
-
-    private func getFilteredVideoDetails(res: VideoModel) -> [VideoResult] {
-        return res.results.filter({ (videoData: VideoResult) in
-            return videoData.site == "YouTube" && videoData.type == "Trailer"
-        })
     }
 }

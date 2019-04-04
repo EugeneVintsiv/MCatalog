@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import Moya
 import Kingfisher
 import DZNEmptyDataSet
 
 class MovieTableViewController: UIViewController {
-
-    let movieDbApiProvider = MoyaProvider<MovieDBApi>()
 
     @IBOutlet weak var movieTableView: UITableView!
     private var movies: [MovieModel] = []
@@ -80,21 +77,10 @@ extension MovieTableViewController {
 // MARK: - loading content
 extension MovieTableViewController {
     func loadData() {
-        movieDbApiProvider.request(.nowPlaying(page: String(self.page))) { (result) in
-            switch result {
-            case .success(let response):
-                do {
-                    let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
-                    self.movies.append(contentsOf: res.results)
-                    self.movieTableView.reloadData()
-                    self.page+=1
-                } catch {
-                    print("error parsing: \(error)")
-                    return
-                }
-            case .failure:
-                debugPrint("Error during request")
-            }
+        NetworkAPI.shared.nowPlaying(page: String(self.page)) { (models) in
+            self.movies.append(contentsOf: models)
+            self.movieTableView.reloadData()
+            self.page+=1
         }
     }
 }
@@ -124,21 +110,9 @@ extension MovieTableViewController: UISearchBarDelegate {
     private func search(searchText: String) {
         if searchText.count < MovieTableViewController.minLengthForSearch { return }
 
-        movieDbApiProvider.request(.search(searchStr: searchText, page: String(1))) { (result) in
-            switch result {
-            case .success(let response):
-                do {
-                    let res: MovieResponse = try response.map(MovieResponse.self) //# parsing
-                    self.movies = res.results
-                    self.movieTableView.reloadData()
-                } catch {
-                    print("error parsing \(error)")
-                    return
-                }
-            case .failure:
-                debugPrint("Error during request")
-                self.loadDataWithReset()
-            }
+        NetworkAPI.shared.search(searchText: searchText) { (models) in
+            self.movies = models
+            self.movieTableView.reloadData()
         }
     }
 }
@@ -176,10 +150,7 @@ extension MovieTableViewController: UITableViewDataSource {
 
         let movie = self.movies[indexPath.row]
         fillFields(movie: movie, cell: cell)
-//        cell.selectionStyle = UITableViewCell.SelectionStyle.hash("2C3B53");
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "2C3B53")
-        cell.selectedBackgroundView = view
+        cell.selectedBackgroundView = Decorations.shared.viewWithBG()
         return cell
     }
 
@@ -189,18 +160,8 @@ extension MovieTableViewController: UITableViewDataSource {
         cell.descriptionText.text = movie.overview
 
         if searchBar.text!.count >= MovieTableViewController.minLengthForSearch {
-            cell.title.attributedText = highlight(searchStr: searchBar.text!, text: movie.title)
+            cell.title.attributedText = Decorations.shared.highlightText(searchStr: searchBar.text!, text: movie.title)
         }
-    }
-
-    private func highlight(searchStr: String, text: String) -> NSAttributedString {
-        let attrString: NSMutableAttributedString = NSMutableAttributedString(string: text)
-
-        let range: NSRange = (text as NSString).range(of: searchStr, options: NSString.CompareOptions.caseInsensitive)
-        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
-        attrString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: range)
-
-        return attrString
     }
 
 }
