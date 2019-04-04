@@ -10,8 +10,8 @@ import Foundation
 import Moya
 
 protocol API {
-    func nowPlaying(page: String, completion: @escaping ([MovieModel]) -> Void)
-    func search(searchText: String, page: String, completion: @escaping ([MovieModel]) -> Void)
+    func nowPlaying(page: Int, completion: @escaping ([MovieModel]) -> Void)
+    func search(searchText: String, page: Int, completion: @escaping ([MovieModel]) -> Void)
     func videoLink(id: Int, completion: @escaping (String?) -> Void)
 }
 
@@ -22,7 +22,7 @@ class NetworkAPI: API {
 
     let movieDbApiProvider = MoyaProvider<MovieDBApi>()
 
-    func nowPlaying(page: String, completion: @escaping ([MovieModel]) -> Void) {
+    func nowPlaying(page: Int, completion: @escaping ([MovieModel]) -> Void) {
         movieDbApiProvider.request(.nowPlaying(page: page)) { (result) in
             switch result {
             case .success(let response):
@@ -39,8 +39,8 @@ class NetworkAPI: API {
         }
     }
 
-    func search(searchText: String, page: String = "1", completion: @escaping ([MovieModel]) -> Void) {
-        movieDbApiProvider.request(.search(searchStr: searchText, page: String(1))) { (result) in
+    func search(searchText: String, page: Int = 1, completion: @escaping ([MovieModel]) -> Void) {
+        movieDbApiProvider.request(.search(searchStr: searchText, page: page)) { (result) in
             switch result {
             case .success(let response):
                 do {
@@ -64,19 +64,20 @@ class NetworkAPI: API {
                     let res: VideoModel = try response.map(VideoModel.self) //parsing
                     let filtered = self.getFilteredVideoDetails(res: res)
 
+                    if filtered.isEmpty { return }
                     let youtubeLink = "https://www.youtube.com/watch?v="
                     guard let videoURL = URL(string: youtubeLink + filtered[0].key) else { return }
 
                     Youtube.h264videosWithYoutubeURL(videoURL) { videoInfo, _ in
                         if let videoURLString = videoInfo?["url"] as? String {
                             completion(videoURLString)
-                        } else {
-                            let youtubePlaceholderVideo = "https://www.youtube.com/watch?v=NpEaa2P7qZI"
-                            guard let placeHolderUrl = URL(string: youtubePlaceholderVideo) else { return }
-                            Youtube.h264videosWithYoutubeURL(placeHolderUrl) { videoInfo, _ in
-                                if let placeHolderVideoUrl = videoInfo?["url"] as? String {
-                                    completion(placeHolderVideoUrl)
-                                }
+                            return
+                        }
+                        let youtubePlaceholderVideo = "https://www.youtube.com/watch?v=NpEaa2P7qZI"
+                        guard let placeHolderUrl = URL(string: youtubePlaceholderVideo) else { return }
+                        Youtube.h264videosWithYoutubeURL(placeHolderUrl) { videoInfo, _ in
+                            if let placeHolderVideoUrl = videoInfo?["url"] as? String {
+                                completion(placeHolderVideoUrl)
                             }
                         }
                     }

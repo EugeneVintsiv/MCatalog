@@ -21,11 +21,11 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieView: UIView!
 
     var movie: MovieModel?
-    private var player: BMPlayer!
+    private weak var player: BMPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        movie.map { fillFields(movie: $0) }
+        movie.map(fillFields(movie:))
     }
 
     private func fillFields(movie: MovieModel) {
@@ -49,8 +49,8 @@ class MovieDetailsViewController: UIViewController {
         BMPlayerConf.topBarShowInCase = .always
 
         player = BMPlayer(customControlView: BMPlayerCustomControlView())
-        player.backBlock = { _ in
-            self.navigationController?.popViewController(animated: true)
+        player.backBlock = { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
 
         self.movieView.addSubview(self.player)
@@ -65,6 +65,7 @@ class MovieDetailsViewController: UIViewController {
         NetworkAPI.shared.videoLink(id: movie.id) { url in
             guard let url = url else { fatalError("Could not get video url") }
             guard let video = URL(string: url), let cover = movie.backgroundUrl() else {return}
+            self.movieView.isHidden = false
             self.addVideo(videoURL: video, coverURL: cover, title: movie.title)
         }
     }

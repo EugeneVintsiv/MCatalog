@@ -10,8 +10,8 @@ import Foundation
 import Moya
 
 enum MovieDBApi {
-    case nowPlaying(page: String)
-    case search(searchStr: String, page: String)
+    case nowPlaying(page: Int)
+    case search(searchStr: String, page: Int)
     case video(id: Int)
 
     private var apiKey: String {
@@ -54,10 +54,10 @@ extension MovieDBApi: TargetType {
     var task: Task {
         switch self {
         case .nowPlaying(let page):
-            let params = ["api_key": apiKey, "page": page]
+            let params = ["api_key": apiKey, "page": String(page)]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .search(let searchStr, let page):
-            let params = ["api_key": apiKey, "page": page, "query": searchStr]
+            let params = ["api_key": apiKey, "page": String(page), "query": searchStr]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .video:
             let params = ["api_key": apiKey]

@@ -77,7 +77,7 @@ extension MovieTableViewController {
 // MARK: - loading content
 extension MovieTableViewController {
     func loadData() {
-        NetworkAPI.shared.nowPlaying(page: String(self.page)) { (models) in
+        NetworkAPI.shared.nowPlaying(page: page) { (models) in
             self.movies.append(contentsOf: models)
             self.movieTableView.reloadData()
             self.page+=1
