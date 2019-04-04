@@ -147,7 +147,6 @@ extension MovieTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.reuseIdentifier) as? MovieCell else {
             fatalError("DequeueReusableCell failed while casting")
         }
-
         let movie = self.movies[indexPath.row]
         fillFields(movie: movie, cell: cell)
         cell.selectedBackgroundView = Decorations.shared.viewWithBG()
@@ -161,6 +160,8 @@ extension MovieTableViewController: UITableViewDataSource {
 
         if searchBar.text!.count >= MovieTableViewController.minLengthForSearch {
             cell.title.attributedText = Decorations.shared.highlightText(searchStr: searchBar.text!, text: movie.title)
+        } else {
+            cell.title.attributedText = Decorations.shared.defaultTextAttributes(text: movie.title)
         }
     }
 

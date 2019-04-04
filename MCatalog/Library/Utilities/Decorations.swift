@@ -23,6 +23,10 @@ class Decorations {
         return attrString
     }
 
+    func defaultTextAttributes(text: String) -> NSAttributedString {
+        return NSMutableAttributedString(string: text)
+    }
+
     func viewWithBG() -> UIView {
 //        set selected background for cell
         let view = UIView()
