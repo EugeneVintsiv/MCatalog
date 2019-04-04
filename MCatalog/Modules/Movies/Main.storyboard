@@ -180,8 +180,8 @@
                             <constraint firstItem="IOe-NH-hKN" firstAttribute="bottom" secondItem="XgX-HW-XE0" secondAttribute="bottom" id="4NM-xd-X7o"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="height" secondItem="CAH-6o-uqR" secondAttribute="height" id="4pV-fM-Fo5"/>
                             <constraint firstItem="x0A-2u-Hle" firstAttribute="centerX" secondItem="IOe-NH-hKN" secondAttribute="centerX" id="C9K-X3-fwm"/>
-                            <constraint firstItem="XgX-HW-XE0" firstAttribute="top" secondItem="SKl-nF-fIy" secondAttribute="bottom" priority="750" constant="190" id="NCV-JE-n4T">
-                                <variation key="heightClass=compact-widthClass=compact" constant="30"/>
+                            <constraint firstItem="XgX-HW-XE0" firstAttribute="top" secondItem="SKl-nF-fIy" secondAttribute="bottom" constant="190" id="NCV-JE-n4T">
+                                <variation key="heightClass=compact-widthClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstItem="IOe-NH-hKN" firstAttribute="leading" secondItem="XgX-HW-XE0" secondAttribute="leading" constant="-8" id="TKh-Rb-52q"/>
                             <constraint firstItem="XgX-HW-XE0" firstAttribute="centerX" secondItem="IOe-NH-hKN" secondAttribute="centerX" id="VFf-3R-0Nu"/>
